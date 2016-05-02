@@ -1,0 +1,38 @@
+sudo: false
+language: node_js
+
+node_js:
+  - "5"
+
+env:
+  - CXX=g++-4.8
+
+before_script:
+  - npm install -g http-server codeclimate-test-reporter
+
+script:
+  - npm run test
+
+after_script:
+  - codeclimate-test-reporter < coverage/lcov/lcov.info
+
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email:
+    recipients:
+      - alleyao@gmail.com
+
+    on_success: [change]
+    on_failure: [change]
+
+addons:
+  code_climate:
+      repo_token:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8

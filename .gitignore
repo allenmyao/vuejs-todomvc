@@ -1,0 +1,13 @@
+# node packages
+node_modules/
+
+# output files
+dist/
+esdoc/
+
+# test output
+coverage/
+
+# log files
+npm-debug.log
+npm-debug.log.*
