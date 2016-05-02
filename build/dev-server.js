@@ -1,11 +1,11 @@
 /* eslint-disable no-process-env, no-console */
 
-process.env.NODE_ENV = 'development';
-
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 
-const webpackConfig = require('./webpack.dev.conf');
+const webpackConfig = process.env.NODE_ENV === 'testing'
+  ? require('./webpack.prod.conf')
+  : require('./webpack.dev.conf');
 const devServerConfig = require('./dev-server.conf');
 
 var compiler = webpack(webpackConfig);
@@ -39,3 +39,5 @@ devServer.listen(devServerConfig.SERVER_PORT, devServerConfig.SERVER_HOST, (err)
   }
   console.log('[webpack-dev-server] http://' + devServerConfig.SERVER_HOST + ':' + devServerConfig.SERVER_PORT + '/webpack-dev-server/index.html');
 });
+
+module.exports = devServer;

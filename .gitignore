@@ -6,7 +6,7 @@ dist/
 esdoc/
 
 # test output
-coverage/
+test/unit/coverage/
 
 # log files
 npm-debug.log
