@@ -15,11 +15,34 @@ npm run dev
 npm run build
 
 # run unit tests
+# make sure karma-cli is installed
 npm run unit
 
 # run e2e tests
+# make sure Chrome, Firefox, and Xvfb are installed
 npm run e2e
 
 # run all tests
 npm test
+```
+
+## Testing
+
+### Dependencies
+
+Unit tests require karma-cli:
+``` bash
+npm install -g karma-cli
+```
+
+E2E testing requires Chrome, Firefox, and Xvfb:
+``` bash
+# Install Firefox and Xvfb
+sudo apt-get install firefox xvfb
+
+# Install chrome
+sudo apt-get install libxss1 libappindicator1 libindicator7
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome*.deb
+sudo apt-get install -f
 ```

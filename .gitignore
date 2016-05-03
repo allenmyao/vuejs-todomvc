@@ -7,7 +7,9 @@ esdoc/
 
 # test output
 test/unit/coverage/
+test/e2e/reports/
 
 # log files
+selenium-debug.log
 npm-debug.log
 npm-debug.log.*

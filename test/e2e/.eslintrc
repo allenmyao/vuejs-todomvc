@@ -1,0 +1,11 @@
+{
+  "env": {
+    "node": true
+  },
+  "globals": {
+  },
+  "extends": "../../.eslintrc",
+  "rules": {
+    "no-console": 0
+  }
+}

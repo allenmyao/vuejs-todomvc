@@ -2,13 +2,13 @@
 
 // http://nightwatchjs.org/guide#settings-file
 module.exports = {
-  src_folders: [ 'test/e2e/specs' ],
-  output_folder: 'test/e2e/reports',
-  custom_assertions_path: [ 'test/e2e/custom-assertions' ],
+  src_folders: [ './test/e2e/specs' ],
+  output_folder: './test/e2e/reports',
+  custom_assertions_path: [ './test/e2e/custom-assertions' ],
 
   selenium: {
     start_process: true,
-    server_path: 'node_modules/selenium-server/lib/runner/selenium-server-standalone-2.53.0.jar',
+    server_path: './node_modules/selenium-server/lib/runner/selenium-server-standalone-2.53.0.jar',
     host: '127.0.0.1',
     port: 4444,
     cli_args: {
