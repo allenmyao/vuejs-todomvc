@@ -1,18 +1,13 @@
 <template>
-  <div id="app">
-    <img class="logo"><!-- src="./assets/logo.png" -->
-    <hello></hello>
+  <div id="wrapper">
+    <router-view
+      class="view"
+      keep-alive
+      transition
+      transition-mode="out-in">
+    </router-view>
   </div>
 </template>
-
-<script>
-import Hello from './components/Hello';
-export default {
-  components: {
-    Hello
-  }
-};
-</script>
 
 <style lang="postcss">
 html {
@@ -26,7 +21,7 @@ html {
   }
 }
 
-#app {
+#wrapper {
   color: #2c3e50;
   margin-top: -100px;
   max-width: 600px;
@@ -36,11 +31,6 @@ html {
   a {
     color: #42b983;
     text-decoration: none;
-  }
-
-  .logo {
-    width: 100px;
-    height: 100px
   }
 }
 </style>
