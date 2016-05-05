@@ -1,13 +1,16 @@
 <template>
   <li class="todo">
     <div>
-      <label class="todo__title">{{todo.title}}</label>
+      <label class="todo__title" @dblclick="edit(todo)">{{todo.title}}</label>
       <button class="todo__btn-remove" @click="remove(todo)"></button>
     </div>
+    <input type="text" class="todo__edit" v-model="todo.title" v-if="isEditing" v-todo-focus="isEditing" @blur="save(todo)" @keyup.enter="save(todo)" @keyup.esc="cancel(todo)"/>
   </li>
 </template>
 
 <script>
+import Vue from 'vue';
+
 export default {
 
   name: 'Todo',
@@ -18,12 +21,44 @@ export default {
 
   data() {
     return {
+      beforeEdit: null,
+      isEditing: false
     };
   },
 
   methods: {
     remove(todo) {
       this.$dispatch('remove-todo', todo);
+    },
+    edit(todo) {
+      this.isEditing = true;
+      this.beforeEdit = todo.title;
+    },
+    save(todo) {
+      todo.title = todo.title.trim();
+      this.isEditing = false;
+      if (!todo.title) {
+        this.cancel(todo);
+      }
+    },
+    cancel(todo) {
+      todo.title = this.beforeEdit;
+      this.isEditing = false;
+    }
+  },
+
+  directives: {
+    'todo-focus': function (value) {
+      // do nothing if directive attribute value does not evaluate to true
+      if (!value) {
+        return;
+      }
+      let el = this.el;
+      // wait for DOM to update to focus on the input
+      // i.e. wait for the input to be displayed
+      Vue.nextTick(function () {
+        el.focus();
+      });
     }
   }
 
@@ -72,6 +107,15 @@ export default {
     &:hover {
       color: #af5b5e;
     }
+  }
+
+  &__edit {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 }
 </style>
