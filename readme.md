@@ -1,6 +1,6 @@
 # Vue.js TodoMVC
 
-> A TodoMVC webapp using Vue.js components.
+> A TodoMVC webapp using Vue.js components. Includes unit tests (run on PhantomJS via Karma using Mocha + Chai with Sinon.JS mocking available) and E2E tests (run on Chrome and Firefox via Nightwatch.js).
 
 ## Build Setup
 
