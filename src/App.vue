@@ -10,7 +10,7 @@
 </template>
 
 <style lang="postcss">
-@import './reset.css';
+@import './main.css';
 
 #wrapper {
   height: 100%;
