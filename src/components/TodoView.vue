@@ -85,6 +85,7 @@ export default {
 
   .todos {
     display: block;
+    width: 100%;
   }
 }
 </style>

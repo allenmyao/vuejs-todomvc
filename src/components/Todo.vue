@@ -1,7 +1,8 @@
 <template>
-  <li class="todo">
+  <li class="todo" :class="{ 'todo--completed': todo.completed }">
     <div>
-      <label class="todo__title" @dblclick="edit(todo)">{{todo.title}}</label>
+      <input type="checkbox" class="todo__completed-toggle" v-model="todo.completed" />
+      <label class="todo__title" @click="edit(todo)">{{todo.title}}</label>
       <button class="todo__btn-remove" @click="remove(todo)"></button>
     </div>
     <input type="text" class="todo__edit" v-model="todo.title" v-if="isEditing" v-todo-focus="isEditing" @blur="save(todo)" @keyup.enter="save(todo)" @keyup.esc="cancel(todo)"/>
@@ -16,7 +17,10 @@ export default {
   name: 'Todo',
 
   props: {
-    todo: Object
+    todo: {
+      type: Object,
+      required: true
+    }
   },
 
   data() {
@@ -69,8 +73,7 @@ export default {
 .todo {
   position: relative;
   display: block;
-  line-height: 20px;
-  padding: 10px;
+  width: 100%;
   border-bottom: 1px solid #ccc;
   text-align: left;
 
@@ -80,16 +83,86 @@ export default {
     }
   }
 
+  &--completed & {
+    &__title,
+    &__edit {
+      text-decoration: line-through;
+      color: #ccc;
+    }
+  }
+
+  &__completed-toggle {
+    -webkit-appearance: none;
+    -moz-appearance: checkbox;
+    appearance: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    height: auto;
+    margin: auto 0;
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: block;
+      width: 40px;
+      height: 40px;
+      margin: -1px 0 0 -1px;
+      border: 1px solid #ededed;
+      border-radius: 50%;
+      box-sizing: content-box;
+      transform: translateY(-50%);
+      transition: border-color 0.15s ease-out;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 7px;
+      height: 20px;
+      margin: -1px 0 0 -1px;
+      border-width: 0 2px 2px 0;
+      border-style: solid;
+      border-color: transparent;
+      box-sizing: content-box;
+      transform: translateX(-50%) translateY(-50%) rotateZ(35deg);
+      transition: border 0.15s ease-out;
+    }
+
+    &:checked{
+      &::after {
+        border-color: #5dc2af;
+      }
+
+      &::before {
+        border-color: #bddad5;
+      }
+    }
+  }
+
   &__title {
-    display: inline-block;
-    height: 20px;
-    line-height: 20px;
+    white-space: pre-line;
+    word-break: break-all;
+    display: block;
+    margin-left: 40px;
+    padding: 15px 60px 15px 15px;
   }
 
   &__btn-remove {
     position: absolute;
     top: 0;
     right: 10px;
+    bottom: 0;
     display: none;
     width: 40px;
     height: 40px;
@@ -111,11 +184,28 @@ export default {
 
   &__edit {
     position: absolute;
-    display: block;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
+    left: 40px;
+    display: block;
+    width: calc(100% - 40px);
+    padding: 15px 60px 15px 15px;
+    border: 0;
+    outline: none;
+    background: none;
+    font-size: 1rem;
+    color: #5DC2AF;
   }
 }
+
+/* Display checkbox with normal size in Firefox by only setting height in webkit browsers */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .todo {
+    .todo__completed-toggle {
+      height: 40px;
+    }
+  }
+}
+
 </style>
