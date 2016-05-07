@@ -1,9 +1,20 @@
 <template>
   <div class="todo-view">
-    <input type="text" class="new-todo" autofocus autocomplete="off" placeholder="Enter todo" v-model="newTodo" @keyup.enter="addTodo" />
+    <header>
+      <input type="text" class="new-todo" autofocus autocomplete="off" placeholder="Enter todo" v-model="newTodo" @keyup.enter="addTodo" />
+      <div class="info">
+        <span><span v-text="remaining"></span> {{ remaining | pluralize 'task' }} remaining</span>
+        <ul>
+          <li><label>Show:</label></li>
+          <li><a href="#/all" :class="{ selected: filter == 'all' }">all</a></li>
+          <li><a href="#/active" :class="{ selected: filter == 'active' }">active</a></li>
+          <li><a href="#/completed" :class="{ selected: filter == 'completed' }">completed</a></li>
+        </ul>
+      </div>
+    </header>
     <ul class="todos" v-if="todos">
       <todo
-        v-for="todo in todos"
+        v-for="todo in filteredTodos"
         :todo="todo">
       </todo>
     </ul>
@@ -13,6 +24,22 @@
 <script>
 import store from '../store';
 import Todo from './Todo.vue';
+
+const filters = {
+  all: function (todos) {
+    return todos;
+  },
+  active: function (todos) {
+    return todos.filter(function (todo) {
+      return !todo.completed;
+    });
+  },
+  completed: function (todos) {
+    return todos.filter(function (todo) {
+      return todo.completed;
+    });
+  }
+};
 
 export default {
 
@@ -34,6 +61,25 @@ export default {
     todos: {
       deep: true,
       handler: store.save
+    }
+  },
+
+  computed: {
+    filteredTodos: function () {
+      return filters[this.filter](this.todos);
+    },
+    remaining: function () {
+      return filters.active(this.todos).length;
+    },
+    done: {
+      get: function () {
+        return this.remaining === 0;
+      },
+      set: function (value) {
+        this.todos.forEach(function (todo) {
+          todo.completed = value;
+        });
+      }
     }
   },
 
@@ -60,7 +106,12 @@ export default {
 
   route: {
     data({ to }) {
-      const filter = +to.params.filter;
+      const filter = to.params.filter;
+
+      if (!(filter in filters)) {
+        this.$route.router.go('/all');
+      }
+
       return {
         todos: store.fetch(),
         filter: filter
@@ -81,6 +132,36 @@ export default {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
+  }
+
+  .info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    li {
+      display: inline-block;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    a {
+      display: block;
+      padding: 5px 10px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color 0.15s ease-out;
+
+      &.selected {
+        border-color: #ccc;
+      }
+    }
   }
 
   .todos {

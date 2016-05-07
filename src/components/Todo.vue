@@ -16,6 +16,7 @@ export default {
 
   name: 'Todo',
 
+  // data from the parent component
   props: {
     todo: {
       type: Object,
@@ -125,8 +126,8 @@ export default {
     &::after {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 48%;
+      left: 52%;
       display: block;
       width: 7px;
       height: 20px;
