@@ -8,7 +8,7 @@ const merge = require('webpack-merge');
 const baseConfig = require('../../build/webpack.base.conf');
 const projectRoot = path.resolve(__dirname, '../../');
 
-var webpackConfig = merge(baseConfig, {
+let webpackConfig = merge(baseConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   devtool: '#inline-source-map',
   vue: {

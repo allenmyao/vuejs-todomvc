@@ -17,10 +17,10 @@ process.stdout.write(
   '  Opening index.html over file:// won\'t work.\n\n'
 );
 
-var spinner = ora('building for production...');
+let spinner = ora('building for production...');
 spinner.start();
 
-var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory);
+let assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory);
 rm('-rf', assetsPath);
 mkdir('-p', assetsPath);
 cp('-R', 'static/', assetsPath);

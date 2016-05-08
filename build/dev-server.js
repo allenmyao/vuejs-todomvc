@@ -8,13 +8,13 @@ const webpackConfig = process.env.NODE_ENV === 'testing'
   : require('./webpack.dev.conf');
 const devServerConfig = require('./dev-server.conf');
 
-var compiler = webpack(webpackConfig);
+let compiler = webpack(webpackConfig);
 
 compiler.plugin('done', (stats) => {
   console.log('[webpack] Build successful!');
 });
 
-var devServer = new WebpackDevServer(compiler, {
+let devServer = new WebpackDevServer(compiler, {
   hot: true,
   quiet: false,
   noInfo: true,

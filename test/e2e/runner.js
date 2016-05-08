@@ -1,3 +1,5 @@
+/* eslint-disable no-process-env */
+
 // 1. start the dev server using production config
 process.env.NODE_ENV = 'testing';
 const server = require('../../build/dev-server.js');
@@ -9,7 +11,7 @@ const server = require('../../build/dev-server.js');
 // For more information on Nightwatch's config file, see
 // http://nightwatchjs.org/guide#settings-file
 const spawn = require('cross-spawn');
-var runner = spawn(
+let runner = spawn(
   './node_modules/nightwatch/bin/nightwatch',
   [
     '--config', 'test/e2e/nightwatch.conf.js',
