@@ -5,7 +5,7 @@
       <label class="todo__title" @click="edit(todo)">{{todo.title}}</label>
       <button class="todo__btn-remove" @click="remove(todo)"></button>
     </div>
-    <input type="text" class="todo__edit" v-model="todo.title" v-if="isEditing" v-todo-focus="isEditing" @blur="save(todo)" @keyup.enter="save(todo)" @keyup.esc="cancel(todo)"/>
+    <textarea class="todo__edit" v-model="todo.title" v-if="isEditing" v-todo-focus="isEditing" @blur="save(todo)" @keyup.enter="save(todo)" @keyup.esc="cancel(todo)"></textarea>
   </li>
 </template>
 
@@ -40,7 +40,7 @@ export default {
       this.beforeEdit = todo.title;
     },
     save(todo) {
-      todo.title = todo.title.trim();
+      // todo.title = todo.title.trim();
       this.isEditing = false;
       if (!todo.title) {
         this.cancel(todo);
@@ -152,11 +152,12 @@ export default {
   }
 
   &__title {
-    white-space: pre-line;
-    word-break: break-all;
     display: block;
+    min-height: 53px;
     margin-left: 40px;
     padding: 15px 60px 15px 15px;
+    white-space: pre-wrap;
+    word-break: break-all;
   }
 
   &__btn-remove {
@@ -195,8 +196,11 @@ export default {
     border: 0;
     outline: none;
     background: none;
+    font-family: inherit;
     font-size: 1rem;
     color: #5DC2AF;
+    resize: none;
+    overflow: hidden;
   }
 }
 
