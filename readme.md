@@ -15,7 +15,6 @@ npm run dev
 npm run build
 
 # run unit tests
-# make sure karma-cli is installed
 npm run unit
 
 # run e2e tests
@@ -29,11 +28,6 @@ npm test
 ## Testing
 
 ### Dependencies
-
-Unit tests require karma-cli:
-``` bash
-npm install -g karma-cli
-```
 
 E2E testing requires Chrome, Firefox, and Xvfb:
 ``` bash

@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "unit": "karma start test/unit/karma.conf.js --single-run",
+    "unit": "./node_modules/karma/bin/karma start test/unit/karma.conf.js --single-run",
     "e2e": "./test/e2e/runner.sh",
     "test": "npm run unit && npm run e2e"
   },
