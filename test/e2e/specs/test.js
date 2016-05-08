@@ -12,7 +12,7 @@ module.exports = {
 
   'Displays input for new todos': function (browser) {
     browser
-      .assert.elementPresent('input.new-todo')
+      .assert.elementPresent('.todo-view__new-todo')
       .end();
   },
 

@@ -53,6 +53,6 @@ describe('TodoView.vue', () => {
       template: '<div><todo-view></todo-view></div>',
       components: { TodoView }
     }).$mount();
-    (vm.$el.querySelectorAll('input.new-todo').length).should.equal(1);
+    (vm.$el.querySelectorAll('.todo-view__new-todo').length).should.equal(1);
   });
 });

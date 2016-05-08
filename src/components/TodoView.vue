@@ -1,18 +1,18 @@
 <template>
   <div class="todo-view">
     <header>
-      <input type="text" class="new-todo" autofocus autocomplete="off" placeholder="Enter todo" v-model="newTodo" @keyup.enter="addTodo" />
-      <div class="info">
+      <input type="text" class="todo-view__new-todo" autofocus autocomplete="off" placeholder="Enter todo" v-model="newTodo" @keyup.enter="addTodo" />
+      <div class="todo-view__info">
         <span><span v-text="remaining"></span> {{ remaining | pluralize 'task' }} remaining</span>
         <ul>
           <li><label>Show:</label></li>
-          <li><a href="#/all" :class="{ selected: filter == 'all' }">all</a></li>
-          <li><a href="#/active" :class="{ selected: filter == 'active' }">active</a></li>
-          <li><a href="#/completed" :class="{ selected: filter == 'completed' }">completed</a></li>
+          <li><a href="#/all" class="todo-view__info__filter" :class="{ 'todo-view__info__filter--selected': filter == 'all' }">all</a></li>
+          <li><a href="#/active" class="todo-view__info__filter" :class="{ 'todo-view__info__filter--selected': filter == 'active' }">active</a></li>
+          <li><a href="#/completed" class="todo-view__info__filter" :class="{ 'todo-view__info__filter--selected': filter == 'completed' }">completed</a></li>
         </ul>
       </div>
     </header>
-    <ul class="todos" v-if="todos">
+    <ul class="todo-view__todos" v-if="todos">
       <todo
         v-for="todo in filteredTodos"
         :todo="todo">
@@ -127,14 +127,14 @@ export default {
   width: 100%;
   height: 100%;
 
-  .new-todo {
+  &__new-todo {
     display: block;
     width: 100%;
     padding: 10px;
     font-size: 1rem;
   }
 
-  .info {
+  &__info {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -149,7 +149,7 @@ export default {
       margin-right: 10px;
     }
 
-    a {
+    &__filter {
       display: block;
       padding: 5px 10px;
       border: 1px solid transparent;
@@ -158,13 +158,13 @@ export default {
       text-decoration: none;
       transition: border-color 0.15s ease-out;
 
-      &.selected {
+      &--selected {
         border-color: #ccc;
       }
     }
   }
 
-  .todos {
+  &__todos {
     display: block;
     width: 100%;
   }
