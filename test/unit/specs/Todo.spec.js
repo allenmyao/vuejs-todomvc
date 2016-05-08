@@ -12,7 +12,13 @@ describe('Todo.vue', () => {
     let data;
     const vm = new Vue({
       template: '<div><todo :todo="todo"></todo></div>',
-      components: { Todo }
+      components: { Todo },
+      data: {
+        todo: {
+          title: null,
+          completed: null
+        }
+      }
     }).$mount();
 
     beforeEach(function (done) {
