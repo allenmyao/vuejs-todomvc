@@ -26,13 +26,33 @@ describe('Todo.vue', function () {
 
   describe('directives', function () {
     describe('todo-focus', function () {
-      it('should do nothing if the value is false', function () {
-        // Todo.directives['todo-focus'](false)
+      let hasFocus;
+      const todo = {
+        el: {
+          focus: function () {
+            hasFocus = true;
+          }
+        }
+      };
+
+      beforeEach(function () {
+        hasFocus = false;
+      });
+
+      it('should do nothing if the value is false', function (done) {
+        Todo.directives['todo-focus'].call(todo, false);
+        Vue.nextTick(function () {
+          (hasFocus).should.be.false;
+          done();
+        });
       });
 
       it('should focus on edit input if the value is true', function (done) {
-        // call directive
-        Vue.nextTick(done);
+        Todo.directives['todo-focus'].call(todo, true);
+        Vue.nextTick(function () {
+          (hasFocus).should.be.true;
+          done();
+        });
       });
     });
   });
